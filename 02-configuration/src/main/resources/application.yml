@@ -1,0 +1,23 @@
+# Base configuration: applies to every profile.
+spring:
+  application:
+    name: configuration-demo
+  config:
+    # Optionally load extra, NOT committed settings (see .gitignore). Missing file = no error.
+    import: "optional:file:./local.yml"
+
+shop:
+  name: Spring Boot Shop
+  max-cart-items: 20            # kebab-case in files -> maxCartItems in Java (relaxed binding)
+  session-timeout: 45m          # Duration: 10s, 45m, 2h, 1d
+  max-upload-size: 10MB         # DataSize: KB, MB, GB
+  currencies:
+    - INR
+    - USD
+  shipping-rates:
+    # Quote money! Unquoted 149.00 is parsed by YAML as a floating-point number first (-> 149.0).
+    standard: "49.00"
+    express: "149.00"
+  support:
+    email: support@shop.example
+    phone: "+91-40-0000-0000"

@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: rest-api
+  mvc:
+    # API versioning (Spring Framework 7): the client picks a version with a header.
+    # Requests without the header get the default version.
+    apiversion:
+      use:
+        header: API-Version
+      default: "1.0"
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html

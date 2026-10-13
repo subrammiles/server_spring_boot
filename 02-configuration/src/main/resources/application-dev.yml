@@ -1,0 +1,9 @@
+# Loaded IN ADDITION to application.yml when the "dev" profile is active; values here win.
+shop:
+  name: Spring Boot Shop (DEV)
+  shipping-rates:
+    standard: "0.00"             # free shipping while testing
+
+logging:
+  level:
+    com.learn.boot: debug

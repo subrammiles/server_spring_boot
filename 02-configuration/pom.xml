@@ -36,6 +36,23 @@
 
     <build>
         <plugins>
+            <!--
+              Generates META-INF/spring-configuration-metadata.json from ShopProperties, so IDEs
+              autocomplete and document "shop.*" keys in application.yml. Since JDK 23, annotation
+              processors must be declared explicitly like this.
+            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.springframework.boot</groupId>
+                            <artifactId>spring-boot-configuration-processor</artifactId>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
             <!-- Builds an executable "fat" jar and provides mvn spring-boot:run -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>

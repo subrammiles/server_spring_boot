@@ -1,0 +1,11 @@
+shop:
+  max-cart-items: 50
+  payment:
+    # No default on purpose: prod fails fast unless SHOP_PAYMENT_API_KEY is set.
+    api-key: ${SHOP_PAYMENT_API_KEY}
+
+server:
+  # Prod-like settings that are good to know
+  shutdown: graceful            # finish in-flight requests on SIGTERM (the default since Boot 3.4)
+  compression:
+    enabled: true
