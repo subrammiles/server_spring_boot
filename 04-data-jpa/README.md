@@ -26,7 +26,8 @@ Compare with `server_spring` lessons 15-18: the DataSource, EntityManagerFactory
   (the `RepositoryTest` counts the SQL statements).
 - **`spring.jpa.open-in-view: false`**: lazy loading must happen in the service transaction. Don't rely on it during JSON rendering.
 - **Service layer**: owns `@Transactional` and maps **entities to DTOs**. Controllers never return entities.
-- **Paging**: `Pageable` parameters straight from the URL (`?page=0&size=5&sort=name,desc`).
+- **Paging**: `Pageable` parameters straight from the URL (`?page=0&size=5&sort=name,desc`), returned as a stable
+  `{"content": [...], "page": {...}}` shape (`@EnableSpringDataWebSupport(pageSerializationMode = VIA_DTO)`).
 - **Projections**: `CourseStats` record filled by a JPQL constructor expression.
 - **JdbcClient** for reporting SQL (`ReportRepository`), next to JPA on the same DataSource.
 - **Constraint violations**: a database unique key becomes `DataIntegrityViolationException`, which the API returns as 409.

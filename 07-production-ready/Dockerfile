@@ -20,6 +20,6 @@ COPY --from=build /extracted/spring-boot-loader/ ./
 COPY --from=build /extracted/snapshot-dependencies/ ./
 COPY --from=build /extracted/application/ ./
 EXPOSE 8080
-# The container platform restarts us if liveness fails
-HEALTHCHECK --interval=30s --timeout=3s CMD wget -qO- http://localhost:8080/actuator/health/liveness || exit 1
+# Health: point your platform's probes at /actuator/health/liveness and /actuator/health/readiness
+# (the JRE image has no curl/wget for a Docker HEALTHCHECK, and Kubernetes ignores HEALTHCHECK anyway).
 ENTRYPOINT ["java", "-XX:MaxRAMPercentage=75", "org.springframework.boot.loader.launch.JarLauncher"]

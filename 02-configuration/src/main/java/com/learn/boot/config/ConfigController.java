@@ -27,7 +27,14 @@ public class ConfigController {
     public Map<String, Object> config() {
         Map<String, Object> result = new LinkedHashMap<>();
         result.put("activeProfiles", Arrays.asList(env.getActiveProfiles()));
-        result.put("shop", shop);
+        result.put("shop", Map.of(
+                "name", shop.name(),
+                "maxCartItems", shop.maxCartItems(),
+                "sessionTimeout", shop.sessionTimeout().toString(),          // ISO-8601, e.g. PT45M
+                "maxUploadSize", shop.maxUploadSize().toMegabytes() + "MB",  // DataSize has no JSON form of its own
+                "currencies", shop.currencies(),
+                "shippingRates", shop.shippingRates(),
+                "support", shop.support()));
         result.put("paymentGateway", payments.getClass().getSimpleName());
         result.put("sampleCharge", payments.charge(shop.currencies().getFirst(), 9.99));
         return result;

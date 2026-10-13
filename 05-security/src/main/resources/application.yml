@@ -1,6 +1,8 @@
 spring:
   application:
     name: security-demo
+  jpa:
+    open-in-view: false
 
 app:
   jwt:
