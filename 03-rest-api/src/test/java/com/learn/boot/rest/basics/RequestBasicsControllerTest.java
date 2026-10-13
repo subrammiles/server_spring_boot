@@ -30,7 +30,7 @@ class RequestBasicsControllerTest {
         String json = "{\"id\":1,\"name\":\"Subbu\",\"salary\":100}";
         assertThat(mvc.post().uri("/basics/employees").contentType(MediaType.APPLICATION_JSON).content(json))
                 .hasBodyTextEqualTo("Data of Subbu is saved");
-        assertThat(mvc.post().uri("/basics/employees-with-query?department=R%26D").contentType(MediaType.APPLICATION_JSON).content(json))
+        assertThat(mvc.post().uri("/basics/employees-with-query").param("department", "R&D").contentType(MediaType.APPLICATION_JSON).content(json))
                 .hasBodyTextEqualTo("Data of Subbu is saved to R&D");
     }
 

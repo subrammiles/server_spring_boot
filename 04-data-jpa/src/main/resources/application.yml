@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: data-jpa
+  datasource:
+    # A fixed name so the H2 console can connect (Boot would otherwise generate a random one)
+    url: jdbc:h2:mem:coursesdb
+  jpa:
+    hibernate:
+      # Flyway owns the schema; Hibernate only CHECKS that the entities match it.
+      ddl-auto: validate
+    # Boot enables "open session in view" by default (with a warning). Turn it off: lazy loading
+    # must happen inside service transactions, not while rendering JSON.
+    open-in-view: false
+    properties:
+      hibernate.format_sql: true
+  h2:
+    console:
+      enabled: true             # http://localhost:8080/h2-console  (JDBC URL: jdbc:h2:mem:coursesdb, user: sa)
+  data:
+    web:
+      pageable:
+        max-page-size: 100
+
+logging:
+  level:
+    org.hibernate.SQL: debug    # print every SQL statement

@@ -3,7 +3,6 @@ package com.learn.boot.rest.course;
 import java.net.URI;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -31,10 +30,13 @@ import jakarta.validation.constraints.Min;
  *   PUT    /api/courses/{id}          full replace
  *   PATCH  /api/courses/{id}          partial update
  *   DELETE /api/courses/{id}          -> 204 No Content
+ *
+ * Constraints on @RequestParam/@PathVariable (@Min, @Max below) are validated by Spring MVC itself
+ * (since Spring 6.1) and produce a 400. Do NOT also put @Validated on the controller class: that adds
+ * an AOP proxy that throws ConstraintViolationException instead, which surfaces as a 500.
  */
 @RestController
 @RequestMapping("/api/courses")
-@Validated   // enables @Min/@Max on the @RequestParams below
 @Tag(name = "Courses", description = "Course catalog")
 public class CourseController {
     private final CourseService service;
