@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: security-demo
+
+app:
+  jwt:
+    # DEMO KEY ONLY. In any real environment supply APP_JWT_SECRET (env var) or a vault secret.
+    # Generate one with: openssl rand -base64 32
+    secret: ${APP_JWT_SECRET:67m2wxOvSbMe1ZgsyBGLYkssS4aow3M2pERVYSMMmek=}
+    ttl: 1h
+
+logging:
+  level:
+    # Set to DEBUG or TRACE to see every filter a request passes through
+    org.springframework.security: info

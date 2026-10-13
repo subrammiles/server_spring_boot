@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: http-clients
+  http:
+    # Defaults for EVERY auto-configured HTTP client: always set timeouts. The JDK default is "wait forever".
+    clients:
+      connect-timeout: 2s
+      read-timeout: 5s
+    # Per-group settings for @ImportHttpServices(group = "placeholder")
+    serviceclient:
+      placeholder:
+        base-url: https://jsonplaceholder.typicode.com
+        read-timeout: 3s
+
+clients:
+  users:
+    base-url: https://jsonplaceholder.typicode.com

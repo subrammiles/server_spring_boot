@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: production-ready
+  threads:
+    virtual:
+      enabled: true               # Java 21 virtual threads for request handling (cheap blocking I/O)
+  lifecycle:
+    timeout-per-shutdown-phase: 20s   # graceful shutdown: in-flight requests get up to 20s to finish
+
+management:
+  endpoints:
+    web:
+      exposure:
+        # Only "health" is exposed over HTTP by default. Expose deliberately; some endpoints leak internals.
+        include: health, info, metrics, prometheus, loggers, features
+  endpoint:
+    health:
+      show-details: always        # use "when-authorized" in production
+      probes:
+        enabled: true             # /actuator/health/liveness and /readiness for Kubernetes
+  info:
+    env:
+      enabled: true               # publish info.* properties below
+    java:
+      enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}   # common tag on every metric
+
+info:
+  app:
+    description: Spring Boot production-readiness demo
+    team: platform@example.com
+
+---
+# Structured JSON logs for log aggregators (ELK, Loki, Datadog): run with --spring.profiles.active=json
+spring:
+  config:
+    activate:
+      on-profile: json
+logging:
+  structured:
+    format:
+      console: ecs
